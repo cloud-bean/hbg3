@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="panel panel-common login-form">
+    <div class="panel-heading">
+      <div class="sit-logo text-center">
+        <img src="/img/logo.png" alt="Project">
+      </div>
+    </div>
+    <div class="panel-body">
+      <div ng-include="" src="templates[currentAction].tpl"></div>
+    </div>
+  </div>
+</div>
+<script type="text/ng-template" id="/login_form">
+  <form id="loginform" role="form" name="loginform" ng-submit="submitForm(loginform.$valid)" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : loginform.username.$invalid && !loginform.username.$pristine }">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input id="login-username" type="text" class="form-control" ng-model="user.email" value=""
+               placeholder="Email" name="username" ng-pattern="validation.email" required>
+      </div>
+      <p ng-show="loginform.username.$error.pattern" class="help-block ng-hide">Invalid email address</p>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : loginform.password.$invalid && !loginform.password.$pristine }">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="login-password" type="password" class="form-control" ng-model="user.password"
+               placeholder="Password" name="password" ng-minlength="6" required>
+      </div>
+      <p ng-show="loginform.password.$error.minlength" class="help-block ng-hide">Invalid Password. Minimum Length is
+        6</p>
+    </div>
+    <div class="controls">
+      <button id="btn-login" ng-click="login()" ng-disabled="loginform.$invalid" class="btn btn-block btn-common">
+        Login
+      </button>
+      <div class="login-actions">
+        <div class="public-login">
+          <!--<a href="/auth/google" class="public-auth"><img src="/images/google.png" alt="google auth"></a>-->
+          <!--<hr>-->
+          <a class="forgot-password btn btn-link" href="javascript:void(0)"
+             ng-click="changeAction('forgot')">Forgot Password</a>
+          <!--<a href="javascript:void(0)" class="btn btn-link" ng-click="changeAction('reg_partner')">Register as a Partner</a>-->
+        </div>
+      </div>
+    </div>
+  </form>
+</script>
+<script type="text/ng-template" id="/firstlogin_form">
+  <form id="firstlogin_form" role="form" ng-keypress="submit($event)" name="firstloginform"
+        ng-submit="submitForm(firstloginform.$valid)" novalidate>
+    <div class="form-group"
+         ng-class="{ 'has-error' : firstloginform.password.$invalid && !firstloginform.password.$pristine }">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="password" id="old_password" ng-model="changepass.password" placeholder="Old Password"
+               class="form-control" name="password" ng-minlength="6" required>
+      </div>
+      <p ng-show="firstloginform.password.$error.minlength" class="help-block ng-hide">Invalid Password. Minimum Length
+        is 6</p>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error' : firstloginform.newpassword.$invalid && !firstloginform.newpassword.$pristine }">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="password" id="new_password" ng-model="changepass.newPassword" placeholder="New Password"
+               class="form-control" name="newpassword" ng-minlength="6" required>
+      </div>
+      <p ng-show="firstloginform.newpassword.$error.minlength" class="help-block ng-hide">Invalid Password. Minimum
+        Length is 6</p>
+    </div>
+    <div class="form-group"
+         ng-class="{ 'has-error' : firstloginform.confirmnewpwd.$invalid && !firstloginform.confirmnewpwd.$pristine }">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+        <input type="password" ng-model="changepass.confirmPassword" placeholder="Confirm Password"
+               class="form-control" name="confirmnewpwd" ng-minlength="6" required>
+      </div>
+      <p ng-show="firstloginform.confirmnewpwd.$error.minlength" class="help-block ng-hide">Invalid Password. Minimum
+        Length is 6</p>
+    </div>
+    <div class="controls">
+      <input type="button" value="Submit" ng-click="changePassword()" ng-disabled="firstloginform.$invalid"
+             class="btn btn-common btn-block">
+    </div>
+  </form>
+</script>
+<script type="text/ng-template" id="/forgotpassword_form">
+  <form id="forgotpassword_form" role="form" ng-keypress="submit($event)" name="forgotpasswdform"
+        ng-submit="submitForm(forgotpasswdform.$valid)" novalidate>
+    <div class="form-group"
+         ng-class="{ 'has-error' : forgotpasswdform.username.$invalid && !forgotpasswdform.username.$pristine }">
+      <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+        <input type="text" ng-model="forgotpass.email" placeholder="Registered Email Address" class="form-control"
+               name="username" ng-pattern="validation.email" required>
+      </div>
+      <p ng-show="forgotpasswdform.username.$error.pattern" class="help-block ng-hide">Invalid email address</p>
+    </div>
+    <div class="controls">
+      <input type="button" value="Cancel" ng-click="changeAction('login')" class="btn btn-default">
+      <input type="button" value="Submit" ng-click="forgotPassword()" ng-disabled="forgotpasswdform.$invalid"
+             class="btn btn-common">
+    </div>
+  </form>
+</script>

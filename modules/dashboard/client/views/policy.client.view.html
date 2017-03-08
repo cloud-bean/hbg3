@@ -1,0 +1,95 @@
+<!--Common Design-->
+<!--Responsive Web Design-->
+<div class="responsive">
+    <div class="panel panel-common user-form clearfix">
+        <div class="panel-heading hidden-xs">
+            <div class="panel-title">
+                <h2>policy List</h2>
+            </div>
+        </div>
+        <div class="panel-body">
+          <table class="table table-hover hidden-xs responsive" id="policy_list">
+            <thead>
+            <tr class="table-head table-sortable">
+              <th class="width-md cell-size-normal-lg">
+                Name
+              </th>
+              <th class="hidden-sm">
+                Options
+              </th>
+              <th class="hidden-sm cell-size-action-lg">
+                Actions
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat-start="policy in policys">
+              <td ng-bind="policy.policyName"></td>
+              <td ng-bind="policy.options"></td>
+              <td class="hidden-sm">
+                <div ead-only="hide">
+                  <a class="action-icon glyphicon glyphicon-edit" title="Edit Policy" ng-click="selectPolicy(policy, 'update');" href="javascript:void(0)"></a>
+                  <a class="action-icon glyphicon glyphicon-trash" title="Delete Policy" ng-click="deletePolicy(policy)" href="javascript:void(0)"></a>
+                </div>
+              </td>
+            </tr>
+            <tr ng-if="showDetail" class="table-row-detail set-list" ng-repeat-end="">
+              <td colspan="3">
+                <ul>
+                  <li data-title="Actions" read-only="hide">
+                    <a class="action-icon glyphicon glyphicon-edit" title="Edit Policy" ng-click="selectPolicy(policy, 'update');" href="javascript:void(0)"></a>
+                    <a class="action-icon glyphicon glyphicon-trash" title="Delete Policy" ng-click="deletePolicy(policy)" href="javascript:void(0)"></a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+
+          <!--Responsive Web Design-->
+          <div class="row visible-xs set-list" ng-repeat="policy in policys">
+            <div class="col-xs-3" ng-bind="policy.policyName"></div>
+            <div class="col-xs-6" ng-bind="policy.options"></div>
+            <div class="col-xs-3">
+              <a class="action-icon glyphicon glyphicon-edit" title="Edit Policy" ng-click="selectPolicy(policy, 'update');" href="javascript:void(0)"></a>
+              <a class="action-icon glyphicon glyphicon-trash" title="Delete Policy" ng-click="deletePolicy(policy)" href="javascript:void(0)"></a>
+            </div>
+          </div>
+          <div class="report-none-message sm ng-hide" ng-show="policys.length == 0" id="policy_none_message">No policy Found</div>
+        </div>
+        <div class="panel-footer">
+            <button id="admin_users_add_button" class="btn btn-common" ng-click="selectPolicy(null, 'add')"><span class="btn-icon glyphicon glyphicon-plus"></span><b>New policy</b></button>
+        </div>
+    </div>
+</div>
+
+<script type="text/ng-template" id="/policy_modal">
+    <div class="modal-header bg-success">
+        <h3 class="modal-title" ng-bind="currentPolicyAction.title">Add New Policy</h3>
+    </div>
+    <div class="modal-body" >
+      <form role="form" ng-submit="submitForm(addpolicyForm)" name="addpolicyForm" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : addpolicyForm.policyName.$invalid && !addpolicyForm.policyName.$pristine }">
+          <div class="input-group">
+            <span class="input-group-addon"><i class="fa fa-tags" aria-hidden="true"></i></span>
+            <input type="text" name="policyName" placeholder="policy yName" ng-model="policy.policyName" class="form-control" ng-minlength="2" ng-maxlength="100"
+                   required>
+          </div>
+        </div>
+        <div class="form-group" ng-class="{ 'has-error' : !testPolicy(policy.options)||addpolicyForm.options.$invalid && !addpolicyForm.options.$pristine }">
+          <div class="input-group textarea-container">
+                <textarea rows="5" class="form-control" name="options" placeholder="policy options" ng-model="policy.options"
+                          ng-change="addpolicyForm.invalid=!testPolicy(policy.options)" required></textarea>
+          </div>
+          <p class="help-block col-md-12" ng-show="!testPolicy(policy.options)">Invalid Options</p>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer text-right">
+        <button class="btn btn-default" ng-click="$dismiss()"><i class="btn-icon glyphicon glyphicon-remove"></i>Cancel
+    </button>
+        <button class="btn btn-common"  ng-disabled="addpolicyForm.invalid||addpolicyForm.$invalid" ng-click="operatePolicy()">
+            <i class="btn-icon glyphicon glyphicon-ok"></i>{{currentPolicyAction.text}}
+        </button>
+    </div>
+</script>

@@ -1,0 +1,261 @@
+<div id="admin_email_container" class="rightcontent" ng-init="refresh()">
+
+  <!--Common Design-->
+  <div class="panel panel-common management email clearfix hidden-xs">
+    <div class="management-list set-list">
+      <div class="actions">
+        <button class="btn btn-common" ng-click="showAddNewEmailTemplateModal()"><span
+          class="glyphicon glyphicon-plus btn-icon"></span>New Email Template
+        </button>
+      </div>
+      <ul id="admin_email_title_list" class="list-group">
+        <li class="list-group-item clearfix" ng-repeat="email in emails"
+            ng-class="{'active': $parent.currentTemplate._id == email._id}" ng-click="changeCurrentTemplate(email)">
+          <p class="list-group-item-text col-md-10">
+            <span>to:{{email.target}}</span>
+            <br>
+            <span>{{email.subject}}</span>
+          </p>
+          <p class="col-md-2" ng-if="$parent.currentTemplate.templateID == email.templateID">
+            <a id="admin_email_template_delete_link" href="javascript:void(0)"
+               ng-click="deleteEmailTemplate(currentTemplate)" class="glyphicon glyphicon-trash"
+               title="delete template"></a>
+          </p>
+        </li>
+      </ul>
+    </div>
+
+    <div class="management-content management-details panel-common">
+      <div class="report-none-message ng-hide" ng-show="!currentTemplate" id="report_none_message">No Template Found
+      </div>
+      <div class="panel-heading hidden-xs" ng-show="currentTemplate">
+        <div class="panel-title"><h2>{{currentTemplate.name}}</h2></div>
+      </div>
+      <div class="panel-body" ng-show="currentTemplate">
+        <form id="admin_email_edit_form" class="form-horizontal">
+          <div class="form-group">
+            <label class="control-label col-sm-2">To:</label>
+            <div class="col-sm-8">
+              <p ng-show="!editTarget" class="form-control-static" ng-bind="currentTemplate.target"></p>
+              <input ng-show="editTarget" name="subject" class="form-control" ng-model="currentTemplate.target">
+            </div>
+            <div class="col-sm-2">
+              <a href="javascript:void(0)" class="glyphicon"
+                 ng-click="editTarget=!editTarget" ng-class="editTarget?'glyphicon-ok':'glyphicon-edit'"></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Title
+              <small>(ID)</small>
+              :</label>
+            <div class="col-sm-8">
+              <p ng-show="!editTitle" class="form-control-static" ng-bind="currentTemplate.title"></p>
+              <input ng-show="editTitle" name="subject" class="form-control" ng-model="currentTemplate.title">
+            </div>
+            <div class="col-sm-2">
+              <a href="javascript:void(0)" class="glyphicon"
+                 ng-click="editTitle=!editTitle" ng-class="editTitle?'glyphicon-ok':'glyphicon-edit'"></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="control-label col-sm-2">Subject:</label>
+            <div class="col-sm-8">
+              <p ng-show="!editSubject" class="form-control-static" ng-bind="currentTemplate.subject"></p>
+              <input ng-show="editSubject" name="subject" class="form-control" ng-model="currentTemplate.subject">
+            </div>
+            <div class="col-sm-2">
+              <a href="javascript:void(0)" class="glyphicon"
+                 ng-click="editSubject=!editSubject" ng-class="editSubject?'glyphicon-ok':'glyphicon-edit'"></a>
+            </div>
+          </div>
+          <div class="form-group">
+            <a href="javascript:void(0);" ng-click="showSendTestEmailModal(currentTemplate);">Send test email</a>
+          </div>
+          <div class="form-group" text-angular="text-angular" ta-toolbar="toolbar" name="htmlcontent"
+               ng-model="currentTemplate.body"></div>
+          <div class="form-group text-right">
+            <button name="cancel" id="admin_email_save_cancel_button" class="btn btn-default" ng-click="resetEdit()">
+              Cancel
+            </button>
+            <button name="save" id="admin_email_save_button" class="btn btn-common" ng-click="saveTemplate()">Submit
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Responsive Web Design-->
+  <form id="search_email_filter" class="visible-xs">
+    <div class="input-group">
+      <div class="input-group-addon">Search</div>
+      <select class="form-control select" ng-model="searchText"
+              ng-options="email.target as email.target for email in emails | unique:'target'">
+        <option value="">--Search Email--</option>
+      </select>
+    </div>
+  </form>
+
+  <div class="responsive visible-xs">
+    <div class="uib-accordion">
+      <div class="report-none-message ng-hide" ng-show="emails.length===0">
+        No Template Found
+      </div>
+      <uib-accordion close-others="true">
+        <uib-accordion-group is-open="template.open" ng-repeat="email in emails | filter: searchText||''"
+                             ng-click="changeCurrentTemplate(email);">
+          <uib-accordion-heading>
+            <div class="panel panel-common management clearfix visible-xs">
+              <div class="management-content management-details">
+                <div class="panel-body" ng-show="emails.length!==0">
+                  <div class="title">
+                    <h2 ng-bind="email.target"></h2>
+                  </div>
+                  <div class="sub-title clearfix responsive-sub-title">
+                    <i class="pull-right glyphicon"
+                       ng-class="{'glyphicon-chevron-down': template.open, 'glyphicon-chevron-right': !template.open}"></i>
+                    <p>
+                      <b>Subject</b> : <span ng-bind="email.subject"></span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </uib-accordion-heading>
+          <div id="responsive_edit_email_description" class="text-edit">
+            <form id="responsive_admin_email_edit_form">
+              <div class="form-group">
+                <div class="input-group">
+                  <div class="input-group-addon">Subject</div>
+                  <input name="subject" class="form-control" ng-model="currentTemplate.subject">
+                </div>
+              </div>
+              <div class="form-group" text-angular="text-angular" ta-toolbar="toolbar"
+                   ng-model="currentTemplate.body"></div>
+              <div class="form-group text-right">
+                <button name="cancel" id="responsive_admin_email_save_cancel_button" class="btn btn-default"
+                        ng-click="resetEdit()">Cancel
+                </button>
+                <button name="save" id="responsive_admin_email_save_button" class="btn btn-common"
+                        ng-click="saveTemplate()">Submit
+                </button>
+              </div>
+            </form>
+          </div>
+        </uib-accordion-group>
+      </uib-accordion>
+    </div>
+  </div>
+</div>
+
+
+<!--new email template modal-->
+<script type="text/ng-template" id="/add_email_template_form">
+  <div class="modal-header bg-success">
+    <h3 class="modal-title">Add New Email Template</h3>
+  </div>
+  <div class="modal-body login-form">
+    <form id="admin_email_template_add_form" role="form" name="addEmailTemplateForm" novalidate>
+      <div class="form-group"
+           ng-class="{ 'has-error' : addEmailTemplateForm.emailTemplateName.$invalid && !addEmailTemplateForm.emailTemplateName.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-globe"></i></span>
+          <input autofocus type="text" name="emailTemplateName" placeholder="Template Name"
+                 ng-model="emailTemplate.name" class="form-control" ng-minlength="2" ng-maxlength="100" required>
+        </div>
+        <p ng-show="addEmailTemplateForm.emailTemplateName.$error.minlength" class="help-block ng-hide">Minimum Length
+          is 2</p>
+        <p ng-show="addEmailTemplateForm.emailTemplateName.$error.maxlength" class="help-block ng-hide">Maximum Length
+          is 100</p>
+      </div>
+
+      <div class="form-group" ng-init="current.form = addEmailTemplateForm"
+           ng-class="{ 'has-error' : addEmailTemplateForm.emailTemplateTitle.$invalid && !addEmailTemplateForm.emailTemplateTitle.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-subtitles"></i></span>
+          <input autofocus type="text" name="emailTemplateTitle" placeholder="Template Title(Template ID, can't repeat)"
+                 ng-model="emailTemplate.title" class="form-control" ng-minlength="2" ng-maxlength="100" required>
+        </div>
+        <p ng-show="addEmailTemplateForm.emailTemplateTitle.$error.minlength" class="help-block ng-hide">Minimum Length
+          is 2</p>
+        <p ng-show="addEmailTemplateForm.emailTemplateTitle.$error.maxlength" class="help-block ng-hide">Maximum Length
+          is 100</p>
+      </div>
+
+      <div class="form-group" ng-init="current.form = addEmailTemplateForm"
+           ng-class="{ 'has-error' : addEmailTemplateForm.emailTemplateTarget.$invalid && !addEmailTemplateForm.emailTemplateTarget.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+          <input autofocus type="text" name="emailTemplateTarget" placeholder="To" ng-model="emailTemplate.target"
+                 class="form-control" ng-minlength="2" ng-maxlength="100" required>
+        </div>
+        <p ng-show="addEmailTemplateForm.emailTemplateTarget.$error.minlength" class="help-block ng-hide">Minimum Length
+          is 2</p>
+        <p ng-show="addEmailTemplateForm.emailTemplateTarget.$error.maxlength" class="help-block ng-hide">Maximum Length
+          is 100</p>
+      </div>
+
+      <div class="form-group" ng-init="current.form = addEmailTemplateForm"
+           ng-class="{ 'has-error' : addEmailTemplateForm.emailTemplateSubject.$invalid && !addEmailTemplateForm.emailTemplateSubject.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-compressed"></i></span>
+          <input autofocus type="text" name="emailTemplateSubject" placeholder="Subject"
+                 ng-model="emailTemplate.subject" class="form-control" ng-minlength="2" ng-maxlength="100" required>
+        </div>
+        <p ng-show="addEmailTemplateForm.emailTemplateSubject.$error.minlength" class="help-block ng-hide">Minimum
+          Length is 2</p>
+        <p ng-show="addEmailTemplateForm.emailTemplateSubject.$error.maxlength" class="help-block ng-hide">Maximum
+          Length is 100</p>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer text-right">
+    <button id="admin_email_template_cancel_button" class="btn btn-default" ng-click="$dismiss()"><i
+      class="btn-icon glyphicon glyphicon-remove"></i>Cancel
+    </button>
+    <button id="admin_email_template_add_button" class="btn btn-common" ng-click="createEmailTemplate()"
+            ng-disabled="addEmailTemplateForm.$invalid"><i class="btn-icon glyphicon glyphicon-ok"></i>Create
+    </button>
+  </div>
+</script>
+
+<script type="text/ng-template" id="/send_test_email_form">
+  <div class="modal-header bg-success">
+    <h3 class="modal-title">Add New Email Template</h3>
+  </div>
+  <form id="send_test_email_form" ng-submit="sendSampleEmail(sendInfo);" role="form" name="sendEmailTemplateForm"
+        novalidate>
+    <div class="modal-body login-form">
+      <div class="form-group"
+           ng-class="{ 'has-error' : sendEmailTemplateForm.target.$invalid && !sendEmailTemplateForm.target.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+          <input autofocus type="text" name="target" ng-model="sendInfo.target" placeholder="Target"
+                 class="form-control"
+                 ng-minlength="2" ng-maxlength="100" required ng-pattern="validation.email">
+        </div>
+        <p ng-show="sendEmailTemplateForm.target.$error.pattern" class="help-block ng-hide">
+          The email address is invalid.</p>
+        <p ng-show="sendEmailTemplateForm.target.$error.minlength" class="help-block ng-hide">Minimum Length is 2</p>
+        <p ng-show="sendEmailTemplateForm.target.$error.maxlength" class="help-block ng-hide">Maximum Length is 100</p>
+      </div>
+      <div class="form-group" ng-repeat="variable in variables"
+           ng-class="{ 'has-error' : sendEmailTemplateForm[variable].$invalid && !sendEmailTemplateForm[variable].$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="glyphicon glyphicon-tag"></i></span>
+          <input autofocus type="text" name="{{variable}}" ng-model="sendInfo[variable]" placeholder="{{variable}}"
+                 class="form-control" ng-minlength="2" ng-maxlength="100" required>
+        </div>
+        <p ng-show="sendEmailTemplateForm[variable].$error.minlength" class="help-block ng-hide">Minimum Length is 2</p>
+        <p ng-show="sendEmailTemplateForm[variable].$error.maxlength" class="help-block ng-hide">Maximum Length is
+          100</p>
+      </div>
+    </div>
+    <div class="modal-footer text-right">
+      <a href="javascript:void(0);" id="send_test_email_form_cancel_button" class="btn btn-default"
+         ng-click="$dismiss()"><i class="btn-icon glyphicon glyphicon-remove"></i>Cancel</a>
+      <input type="submit" id="send_test_email_form_confirm_button" class="btn btn-common" value="send"
+             ng-disabled="sendEmailTemplateForm.$invalid">
+    </div>
+  </form>
+</script>

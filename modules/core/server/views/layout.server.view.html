@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--[if lt IE 9 ]>
+  <meta http-equiv=refresh content="0; URL=http://outdatedbrowser.com/en">
+  <script>window.location.href="http://outdatedbrowser.com/en";</script>
+  <![endif]-->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="csrf-token" content="{{csrf_token}}">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <base href="/">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="fragment" content="!">
+
+  <!-- Apple META -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+
+
+  <!-- Application CSS Files -->
+  <!-- build:css /stylesheets/lib.min.css -->
+  {% for cssFile in cssLibFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+  <!-- endbuild -->
+  <!-- build:css /stylesheets/app.min.css -->
+  {% for cssFile in cssAPPFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+  <!-- endbuild -->
+</head>
+
+<body flow-prevent-drop class="ng-cloak">
+  {% block content %}{% endblock %}
+  {% include 'footer.server.view.html' %}
+
+  <!--Embedding The User Object-->
+  <script type="text/javascript">
+    var user = {{ user | json | safe }};
+  </script>
+
+  <!--Application JavaScript Files-->
+  <!-- build:js /javascripts/lib.min.js -->
+  {% for jsFile in jsLibFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  <!-- endbuild -->
+  <!-- build:js /javascripts/app.min.js -->
+  {% for jsFile in jsAPPFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  <!-- endbuild -->
+
+  {% if livereload %}
+  <!--Livereload script rendered -->
+  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
+  {% endif %}
+</body>
+
+</html>

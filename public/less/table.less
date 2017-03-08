@@ -1,0 +1,47 @@
+table{
+  //tbody{
+  //  border:2px solid @commonBorder;
+  //  border-top: none;
+  //}
+
+  .table-sortable [ng-click] {
+    cursor: pointer;
+    -webkit-user-select: none;
+    /* Chrome all / Safari all */
+    -moz-user-select: none;
+    /* Firefox all */
+    -ms-user-select: none;
+    /* IE 10+ */
+  }
+
+  .cell-size-action-lg{
+    width: 120px;
+  }
+
+  .cell-size-normal-lg{
+    width:200px;
+  }
+}
+
+.table {
+  table-layout: fixed;
+
+  td {
+    input, button {
+      max-width: 100%;
+      min-width: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  table{
+    .cell-size-action-lg{
+      width: auto;
+    }
+
+    .cell-size-normal-lg{
+      width:auto;
+    }
+  }
+}

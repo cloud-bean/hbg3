@@ -1,0 +1,273 @@
+/*Responsive Web Design*/
+@media screen and (max-width: 768px) {
+
+  .user-form {
+    .panel-footer {
+      text-align: center;
+    }
+  }
+  // responsive background green admin-dashboard admin-leads admin-invoices admin-receipts
+  .mobile-view-bkg {
+    display:block;
+    padding: 25px 0;
+    background: @resHeader;
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+    color:@white;
+    text-decoration:none;
+
+    &:after{
+      content: "";
+      border-radius: 0 0 80% 80%;
+      height: 43%;
+      width: 100%;
+      background: @resBckgColor;
+      display: block;
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
+  // responsive calendar
+  .calendar-input{
+    .dropdown-menu {
+      position: fixed;
+      bottom: 0;
+      top: auto!important;
+      left: 0!important;
+      right: 0;
+      padding: 1em 0;
+      table {
+        margin: 0 auto;
+      }
+    }
+  }
+
+  // responsive  user list
+  .responsive {
+    margin: 10px 0;
+    .uib-accordion{
+      .panel-group{
+        .panel{
+          background-color: @white;
+        }
+        .panel-title a {
+          padding: 0;
+          color: @black;
+          &:hover {
+            color: @black;
+            text-decoration: none;
+          }
+        }
+      }
+      .management-details{
+        width: 100%;
+        border-left: none;
+      }
+
+      .responsive-new-user{
+        text-align: center;
+        margin: 10px 0;
+        button{
+          float: none;
+        }
+      }
+
+      .responsive-sub-title{
+        padding: 10px  0 !important;
+        border-bottom: none;
+
+        .pdf{
+          display: inline-block !important;
+          color: @link !important;
+        }
+
+        .portrait{
+          width: 75px;
+        }
+      }
+
+      .panel-body{
+        padding: 0 15px !important;
+      }
+      .panel-default{
+        margin: 15px 0;
+      }
+    }
+
+    //    admin-user
+    .user-form{
+      padding: 0 10px;
+
+      .panel-footer{
+        background-color: @white !important;
+        border-top-color: @white !important;
+        margin-top: 20px;
+      }
+    }
+
+    .report-none-message{
+      font-size: 2em;
+    }
+
+    //school-admin, partner-admin
+    .responsive-admin{
+      padding: 10px;
+      border-top: 2px dashed @commonBorder;
+      .sub-title{
+        border: none;
+        h3, p{
+          display: inline-block;
+        }
+        .visible-xs{
+          display: inline-block !important;
+        }
+      }
+    }
+
+    //school-programs
+    .program-campuses{
+      .campus-items{
+        padding: 10px;
+        border: 1px solid @commonBorder;
+        .items-content{
+          padding: 0;
+        }
+        .icheckbox_flat{
+          margin: 0 0 4px;
+        }
+      }
+    }
+
+    //school-school
+    .responsive-upload{
+      padding-bottom: 10px;
+      border-bottom: 2px #ddd dashed;
+
+      .gallery-box{
+        width: 100%;
+      }
+      .drop{
+        //border: none;
+        //padding: 0;
+        margin-top: 0;
+      }
+      .img-size{
+        margin-top: 15%;
+      }
+    }
+  }
+
+  .responsive-filter{
+    .nav-tabs{
+      font-size: 13px;
+    }
+  }
+
+  .responsive-title{
+    border-top: 2px @commonBorder dashed;
+    padding: 30px 0;
+  }
+
+  .panel-collapse{
+    border-top: 1px @grey solid;
+  }
+  .responsive-user-list{
+    border-bottom: 1px @resBorderBottomColor solid;
+    padding: 10px 0;
+  }
+  .line-space-xs{
+    margin-top: 10px;
+  }
+
+  //school or partner admin
+  .school-management .management-content .sub-title {
+    padding: 0;
+    &:last-of-type{
+      border: none;
+    }
+  }
+
+  .approved{
+    background-color: @green;
+  }
+  .pending{
+    background-color: @grey;
+  }
+  .declined{
+    background-color: @red;
+  }
+  .navigation-approved{
+    color: @green;
+  }
+  .navigation-declined{
+    color: @red;
+  }
+  .list-background{
+    background-color: @grey-light;
+    margin-bottom: 5px;
+  }
+
+  //text-anaularjs
+  .ta-toolbar {
+    border: 5px solid @editorBckg;
+    .btn-group{
+      .btn{
+        padding: 2px 6px;
+      }
+    }
+  }
+  .text-edit{
+    .form-group{
+      margin-top: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .line-space-sm{
+    margin-top: 10px;
+  }
+
+  .calendar-input{
+    .dropdown-menu {
+      position: fixed;
+      bottom: 0;
+      top: auto!important;
+      left: 0!important;
+      right: 0;
+      padding: 1em 0;
+      table {
+        margin: 0 auto;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .responsive-width{
+    width: 60%;
+  }
+
+  .management{
+    .management-admin{
+      .lead-status{
+        padding: 0 6px;
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) and (max-width: 992px) {
+  .responsive-width{
+    width: 70%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .responsive-width{
+    width: 25%;
+  }
+}

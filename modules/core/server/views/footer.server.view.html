@@ -1,0 +1,41 @@
+<div class="overlay-message set-list" ng-show="mainLoading">
+    <ul class="loader">
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+<div class="main-alert-message ng-cloak">
+    <uib-alert ng-repeat="alert in alertMessages" type="{% raw %}{{alert.type}}{% endraw %}" ng-bind="alert.message"></uib-alert>
+</div>
+<script type="text/ng-template" id="main_message.html">
+    <div ng-class="messageObject.type">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <i class="glyphicon"></i>
+            </h4>
+        </div>
+        <div class="modal-body program-scroll">
+            <p ng-bind-html="messageObject.message|to_trusted"></p>
+        </div>
+        <div class="modal-footer common">
+            <button class="btn btn-common" autofocus ng-bind="messageObject.action||'Close'" ng-click="ok();">Close</button>
+        </div>
+        <div class="modal-footer confirm">
+            <button class="btn btn-common" autofocus ng-bind="messageObject.action" ng-click="ok();">Confirm</button>
+            <button class="btn btn-default" ng-click="$close('no')">Cancel</button>
+        </div>
+    </div>
+</script>
+{% if (settings.env == 'production') && googleAnalyticsTrackingID %}
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', '{{googleAnalyticsTrackingID}}', 'auto');
+    ga('send', 'pageview');
+
+
+</script>
+{% endif %}

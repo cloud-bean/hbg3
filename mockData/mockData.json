@@ -1,0 +1,123 @@
+{
+  "requests": {
+    "users": {
+      "super": [
+        {
+          "password": "default",
+          "email": "info@lineagesolutions.com",
+          "displayName": "Sharlto Copley",
+          "firstName": "Sharlto",
+          "middleName": "",
+          "lastName": "Copley",
+          "status": 1,
+          "roles": [
+            "superuser"
+          ],
+          "provider": "local",
+          "profileImageURL": "/img/profile/default-profile-image.png"
+        }
+      ],
+      "admin": [
+        {
+          "password": "default",
+          "email": "admin1@lineagesolutions.com",
+          "displayName": "Admin Lineage",
+          "firstName": "Admin",
+          "middleName": "",
+          "lastName": "Lineage",
+          "status": 1,
+          "roles": [
+            "admin"
+          ],
+          "provider": "local",
+          "profileImageURL": "/img/profile/default-profile-image.png"
+        },
+        {
+          "password": "default",
+          "email": "admin2@lineagesolutions.com",
+          "displayName": "Admin Lineage",
+          "firstName": "Admin",
+          "middleName": "",
+          "lastName": "Lineage",
+          "status": 1,
+          "roles": [
+            "admin"
+          ],
+          "provider": "local",
+          "profileImageURL": "/img/profile/default-profile-image.png"
+        }
+      ],
+      "user": [
+        {
+          "password": "default",
+          "email": "user1@lineagesolutions.com",
+          "displayName": "User Lineage",
+          "firstName": "User",
+          "middleName": "",
+          "lastName": "Lineage",
+          "status": 1,
+          "roles": [
+            "user"
+          ],
+          "provider": "local",
+          "profileImageURL": "/img/profile/default-profile-image.png"
+        },
+        {
+          "password": "default",
+          "email": "user2@lineagesolutions.com",
+          "displayName": "User Lineage",
+          "firstName": "User",
+          "middleName": "",
+          "lastName": "Lineage",
+          "status": 1,
+          "roles": [
+            "user"
+          ],
+          "provider": "local",
+          "profileImageURL": "/img/profile/default-profile-image.png"
+        }
+      ]
+    },
+    "clients": [
+      {
+        "clientName": "clienttest",
+        "clientID": "clienttestid",
+        "clientSecret": "clienttestsecret"
+      }
+    ],
+    "emailTemplates": [
+      {
+        "title": "create-user",
+        "name": "Create User",
+        "subject": "[Test] User Created Successfully",
+        "target": "New User",
+        "body": "<p> Dear <b>{{displayName}}</b>:</p><p> This is an auto generated mail to notify you that user account has been created successfully.<br/><br/>    Following are the user details:</p><table style=\"width: 100%;\" class=\"table\">    <tbody>    <tr>        <td style=\"text-align: right;\">Email ID: </td>        <td>{{email}}</td>    </tr>    <tr>        <td style=\"text-align: right;\">Display Name: </td>        <td> {{displayName}}</td>    </tr>    <tr>        <td style=\"text-align: right;\">Password: </td>        <td>{{password}}</td>    </tr>    </tbody></table><p><br/> Thanks,<br/>Test<br/></p><p>Note: This is an automatically generated email, please do not reply.</p>",
+        "textBody": "Dear {{displayName}} :\n\nThis is an auto generated mail to notify you that user account has been created\nsuccessfully.\n\nFollowing are the user details:\n\nEmail ID: {{email}} Display Name: {{displayName}} Password: {{password}}\nThanks,\nTest\n\n\nNote: This is an automatically generated email, please do not reply."
+      },
+      {
+        "title": "reset-password",
+        "subject": "[Test] Password Reset Successfully",
+        "target": "User",
+        "body": " <p>Dear <b>{{displayName}}</b>:</p> <p>This is an auto generated mail to notify you that your password has been reset successfully.<br/><br/> Following are the user details:</p> <table style=\"width: 100%;\"> <tbody> <tr> <td style=\"text-align: right;\">Email: </td> <td>{{email}}</td> </tr> <tr> <td style=\"text-align: right;\">Display Name: </td> <td>{{displayName}}</td> </tr> <tr> <td style=\"text-align: right;\">Password: </td> <td>{{password}}</td> </tr> </tbody> </table> <p><br/> Thanks,<br/>Test<br/></p> <p>Note: This is an automatically generated email, please do not reply.</p>",
+        "textBody": "Dear {{displayName}} :\n\nThis is an auto generated mail to notify you that your password has been reset\nsuccessfully.\n\nFollowing are the user details:\n\nEmail: {{email}} Display Name: {{displayName}} Password: {{password}}\nThanks,\nTest\n\n\nNote: This is an automatically generated email, please do not reply.",
+        "name": "Rest Password"
+      },
+      {
+        "name": "Change Password",
+        "title": "change-password",
+        "subject": "[Test] Password Changed Successfully",
+        "target": "User",
+        "body": "<p> Dear <b>{{displayName}}</b>:</p> <p> This is an auto generated mail to notify you that password has been changed successfully. <br/> Following are the user details:</p> <table style=\"width: 100%;\"> <tbody> <tr> <td style=\"text-align: right;\">Email:&nbsp; </td> <td>{{email}}</td> </tr> <tr> <td style=\"text-align: right;\">Display Name:&nbsp; </td> <td> {{displayName}}</td> </tr> </tbody> </table> <p><br/> Thanks,<br/>Test<br/></p> <p> Note: This is an automatically generated email, please do not reply.</p>",
+        "textBody": "Dear {{displayName}} :\n\nThis is an auto generated mail to notify you that password has been changed\nsuccessfully.\nFollowing are the user details:\n\nEmail: {{email}} Display Name: {{displayName}}\nThanks,\nTest\n\n\nNote: This is an automatically generated email, please do not reply."
+      },
+      {
+        "title": "forgot-password",
+        "subject": "[Test] Password Reset Request",
+        "target": "User",
+        "body": "<p>Dear <b>{{displayName}}</b>:</p> <p>You're receiving this email because you requested a password reset for the email <b>{{email}}</b>. <br> Please Click following link:</p> <table style=\"width: 100%;\"> <tbody> <tr> <td> <p> <a href=\"{{resetUrl}}{{token}}\"> Reset Password </a> </p> </td> </tr> </tbody> </table> <p><br> Thanks,<br>Test<br></p> <p>Note: This is an automatically generated email, please do not reply.</p>",
+        "textBody": "Dear {{displayName}} :\n\nYou're receiving this email because you requested a password reset for the email {{email}} .\nPlease Click following link:\n\nReset Password [{{resetUrl}}{{token}}]\n\n\nThanks,\nTest\n\n\nNote: This is an automatically generated email, please do not reply.",
+        "name": "Forgot Password"
+      }
+    ]
+  }
+}

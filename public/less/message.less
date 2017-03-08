@@ -1,0 +1,133 @@
+.message-modal {
+  margin: 100px auto;
+  text-align: left;
+  z-index: 1100 !important;
+
+  .modal-dialog {
+    max-width: 450px;
+  }
+  .modal-header {
+    border-radius: 4px 4px 0 0;
+
+    .glyphicon::before {
+      margin-right: 5px;
+      content: "\e107";
+    }
+  }
+
+  .modal-title::after {
+    content: 'INFO';
+  }
+
+  h4 {
+    color: @white;
+  }
+
+  .modal-body {
+    padding: 20px 15px;
+    color: @modalBody;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .modal-footer.confirm {
+    display: none;
+  }
+
+  .error {
+    .modal-header {
+
+      .glyphicon::before {
+        content: "\e107";
+      }
+    }
+    .modal-title::after {
+      content: 'ERROR';
+    }
+
+    .modal-body {
+      color: @errModalBody;
+    }
+  }
+  .warning {
+    .modal-header {
+
+      .glyphicon::before {
+        content: "\e123";
+      }
+    }
+    .modal-title::after {
+      content: 'WARNING';
+    }
+
+    .modal-body {
+      color: @waringModalBody;
+    }
+  }
+  .success {
+    .modal-header {
+
+      .glyphicon::before {
+        content: "\e067";
+      }
+    }
+    .modal-title::after {
+      content: 'SUCCESS';
+    }
+
+    .modal-body {
+      color: @successModalBody;
+    }
+  }
+
+  .confirm {
+    .modal-header {
+
+      .glyphicon::before {
+        content: "\e123";
+      }
+    }
+    .modal-title::after {
+      content: 'CONFIRM';
+    }
+
+    .modal-body {
+      color: @confirmModalBody;
+    }
+
+    .modal-footer.common {
+      display: none;
+    }
+
+    .modal-footer.confirm {
+      display: block;
+    }
+  }
+}
+
+.main-alert-message {
+  position: fixed;
+  bottom: 0;
+  right: 5px;
+  opacity: 0.8;
+  .alert {
+    width: 300px;
+  }
+
+  .alert-error{
+    color: @errorAlertText;
+    background-color: @errorAlertBg;
+  }
+}
+@media screen and (max-width: 768px) {
+  .main-alert-message {
+    bottom: 20px;
+    right: auto;
+    left: auto;
+    width: 100%;
+    .alert {
+      margin: 0 auto;
+      text-align: center;
+    }
+  }
+}

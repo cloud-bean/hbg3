@@ -1,0 +1,13 @@
+<div class="active-user panel" ng-class="active?'panel-success':'panel-warning'">
+  <div class="panel-heading">
+    <h1 class="panel-title">Register success!</h1>
+  </div>
+  <div class="panel-body">
+    <div class="success" ng-if="active">
+      Your account has been active! click <a ui-sref="authentication.signin">here</a> to go to login!
+    </div>
+    <div class="failure" ng-if="!active">
+      The url is invalid! go to <a ui-sref="authentication.signin">login</a>!
+    </div>
+  </div>
+</div>

@@ -1,0 +1,609 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "API Reference"
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Operations about user"
+        },
+        {
+            "name": "Policy",
+            "description": "Get access control from server"
+        },
+        {
+            "name": "File",
+            "description": "upload and show file"
+        }
+    ],
+    "paths": {
+        "/api/base/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "create user",
+                "description": "create user",
+                "operationId": "create user",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "create user",
+                        "required": true,
+                        "schema": {
+                            "title": "create user Schema",
+                            "type": "object",
+                            "properties": {
+                                "password": {
+                                    "type": "string"
+                                },
+                                "email": {
+                                    "type": "string"
+                                },
+                                "displayName": {
+                                    "type": "string"
+                                },
+                                "firstName": {
+                                    "type": "string"
+                                },
+                                "middleName": {
+                                    "type": "string"
+                                },
+                                "lastName": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "email",
+                                "firstName"
+                            ],
+                            "example": {
+                                "password": "123456",
+                                "email": "test@example.com",
+                                "displayName": "Gavin qin",
+                                "firstName": "Qin",
+                                "middleName": "",
+                                "lastName": "Gavin"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    },
+                    "400": {
+                        "description": "Invalid request parameters"
+                    },
+                    "404": {
+                        "description": "The request resource was not found"
+                    },
+                    "500": {
+                        "description": "The server is currently unavailable"
+                    }
+                }
+            }
+        },
+        "/api/base/users/{userId}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "get user info",
+                "description": "get user info",
+                "operationId": "get user info",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "this is oAuth token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "description": "userId",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    },
+                    "401": {
+                        "description": "no permission"
+                    },
+                    "403": {
+                        "description": "no auth"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "update user info",
+                "description": "update user info",
+                "operationId": "update user info",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "this is oAuth token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "description": "userId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "create user",
+                        "required": true,
+                        "schema": {
+                            "title": "create user Schema",
+                            "type": "object",
+                            "properties": {
+                                "displayName": {
+                                    "type": "string"
+                                },
+                                "firstName": {
+                                    "type": "string"
+                                },
+                                "middleName": {
+                                    "type": "string"
+                                },
+                                "lastName": {
+                                    "type": "string"
+                                },
+                                "roles": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "profileImageURL": {
+                                    "type": "string"
+                                }
+                            },
+                            "example": {
+                                "displayName": "Gavin qin",
+                                "firstName": "Qin",
+                                "middleName": "",
+                                "lastName": "Gavin"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    },
+                    "400": {
+                        "description": "invalid request"
+                    },
+                    "401": {
+                        "description": "no permission"
+                    },
+                    "403": {
+                        "description": "no auth"
+                    },
+                    "404": {
+                        "description": "request not fond"
+                    }
+                }
+            }
+        },
+        "/api/base/users/password/forgot": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "user forgot password",
+                "description": "user forgot password",
+                "operationId": "user forgot password",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "user forgot password",
+                        "required": true,
+                        "schema": {
+                            "title": "forgot password Schema",
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "resetUrl": {
+                                    "type": "string",
+                                    "description": "your reset password page url"
+                                }
+                            },
+                            "required": [
+                                "email",
+                                "resetUrl"
+                            ],
+                            "example": {
+                                "email": "test@example.com",
+                                "resetUrl": "http://example.com/user/reset/password/"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    }
+                }
+            }
+        },
+        "/api/base/users/password/token/{token}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "test reset password token",
+                "description": "test reset password token",
+                "operationId": "test reset password token",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "token",
+                        "description": "reset password token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    }
+                }
+            }
+        },
+        "/api/base/users/password/reset": {
+            "patch": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "change password by token",
+                "description": "change password by token",
+                "operationId": "change password by token",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "create user",
+                        "required": true,
+                        "schema": {
+                            "title": "create user Schema",
+                            "type": "object",
+                            "properties": {
+                                "token": {
+                                    "type": "string",
+                                    "description":"reset password token"
+                                },
+                                "newPassword": {
+                                    "type": "string",
+                                    "description":"new password"
+                                },
+                                "confirmPassword": {
+                                    "type": "string",
+                                    "description": "should be equal new password"
+                                }
+                            },
+                            "required": [
+                                "token",
+                                "newPassword",
+                                "confirmPassword"
+                            ],
+                            "example": {
+                                "token": "asd87fasdfuasdf7asdf23iw22o329i30",
+                                "newPassword": "default",
+                                "confirmPassword": "default"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    }
+                }
+            }
+        },
+        "/api/base/users/{userId}/change/password": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "change user password by herself",
+                "description": "change password by herself",
+                "operationId": "change password by herself",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "this is oAuth token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "userId",
+                        "description": "userId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "change password info",
+                        "required": true,
+                        "schema": {
+                            "title": "change user password Schema",
+                            "type": "object",
+                            "properties": {
+                                "password": {
+                                    "type": "string"
+                                },
+                                "newPassword": {
+                                    "type": "string"
+                                },
+                                "confirmPassword": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "password",
+                                "newPassword",
+                                "confirmPassword"
+                            ],
+                            "example": {
+                                "password": "oldPassword",
+                                "newPassword": "newPassword",
+                                "confirmPassword": "newPassword"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Response success"
+                    },
+                    "401": {
+                        "description": "no permission"
+                    },
+                    "403": {
+                        "description": "no auth"
+                    }
+                }
+            }
+        },
+        "/oauth/token": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "get token",
+                "description": "get refresh token and access token, if your access_token out of date, you should post your client info (client_id,client_secret,grant_type,refresh_token) to this router, then you'll get a new access_token",
+                "operationId": "login",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "get refresh token and access token",
+                        "required": true,
+                        "schema": {
+                            "title": "create user Schema",
+                            "type": "object",
+                            "properties": {
+                                "password": {
+                                    "type": "string",
+                                    "description":"just for login"
+                                },
+                                "username": {
+                                    "type": "string",
+                                    "description":"just for login"
+                                },
+                                "grant_type": {
+                                    "type": "string",
+                                    "description": "it's required both login and refresh token"
+                                },
+                                "client_id": {
+                                    "type": "string",
+                                    "description": "it's required both login and refresh token"
+                                },
+                                "client_secret": {
+                                    "type": "string",
+                                    "description": "it's required both login and refresh token"
+                                },
+                                "refresh_token": {
+                                    "type": "string",
+                                    "description":"just for refresh token"
+                                },
+                                "rememberMe":{
+                                    "type": "boolean",
+                                    "description": "it's not necessary, if you setting it's true, then your access token useful life up to 10 days"
+                                }
+                            },
+                            "required": [
+                                "client_id",
+                                "client_secret",
+                                "grant_type"
+                            ],
+                            "example": {
+                                "client_id": "123gogogo",
+                                "client_secret": "guchengzhonglou",
+                                "grant_type": "password",
+                                "username": "admin@lineagesolutions.com",
+                                "password": "default",
+                                "rememberMe": true
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    }
+                }
+            }
+        },
+        "/api/base/policy": {
+            "post": {
+                "tags": [
+                    "Policy"
+                ],
+                "summary": "get acl info from server",
+                "description": "get acl info from server",
+                "operationId": "get acl info from server",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "this is oAuth token",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "get acl info from server",
+                        "required": true,
+                        "schema": {
+                            "title": "get acl info from server",
+                            "type": "object",
+                            "properties": {
+                                "policyName": {
+                                    "type": "string"
+                                },
+                                "path": {
+                                    "type": "string"
+                                },
+                                "method": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "policyName",
+                                "path",
+                                "method"
+                            ],
+                            "example": {
+                                "policyName": "sit-web",
+                                "path": "/app/:userId/messages",
+                                "method": "get"
+                            }
+                        }
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    },
+                    "401": {
+                        "description": "no permission"
+                    },
+                    "403": {
+                        "description": "no auth"
+                    }
+                }
+            }
+        },
+        "/api/base/tool/files":{
+            "get": {
+                "tags":["File"],
+                "summary":"get file list",
+                "description":"get file list",
+                "operationId":"get file list",
+                "parameters":[
+                    {
+                        "in": "header",
+                        "name": "Authorization",
+                        "description": "this is oAuth token",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags":["File"],
+                "summary":"upload file",
+                "description":"upload file",
+                "operationId":"upload file",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file to upload",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    }
+                }
+            }
+        },
+        "/api/base/tool/files/{location}":{
+            "post": {
+                "tags":["File"],
+                "summary":"upload file",
+                "description":"upload file",
+                "operationId":"upload file",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters":[
+                    {
+                        "in": "path",
+                        "name": "location",
+                        "description": "location",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "file",
+                        "in": "formData",
+                        "description": "file to upload",
+                        "required": false,
+                        "type": "file"
+                    }
+                ],
+                "responses":{
+                    "200":{
+                        "description":"successful operation"
+                    }
+                }
+            }
+        }
+    }
+}

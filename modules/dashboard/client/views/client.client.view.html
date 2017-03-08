@@ -1,0 +1,106 @@
+<!--Common Design-->
+<div class="responsive">
+  <div class="panel panel-common user-form clearfix" ng-init="refresh()">
+    <div class="panel-heading hidden-xs">
+      <div class="panel-title">
+        <h2>Client List</h2></div>
+    </div>
+    <div class="panel-body" id="admin_users_list">
+      <table class="table table-hover hidden-xs responsive" id="client_list">
+        <thead>
+        <tr class="table-head table-sortable">
+          <th class="cell-size-normal-lg">
+            Name
+          </th>
+          <th class="cell-size-normal-lg">
+            ID
+          </th>
+          <th>
+            Secret
+          </th>
+          <th class="hidden-sm cell-size-action-lg">
+            Actions
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat-start="client in clients " ng-class="{'show-detail': showDetail}">
+          <td ng-bind="client.clientName"></td>
+          <td ng-bind="client.clientID"></td>
+          <td ng-bind="client.clientSecret"></td>
+          <td class="hidden-sm">
+            <div>
+              <a class="action-icon glyphicon glyphicon-trash" title="Delete client" ng-click="deleteClient(client)"
+                 href="javascript:void(0)"></a>
+              <a class="action-icon glyphicon glyphicon-repeat" title="Reset client token"
+                 ng-click="refreshClient(client);" href="javascript:void(0)"></a>
+            </div>
+          </td>
+        </tr>
+        <tr ng-if="showDetail" class="table-row-detail set-list" ng-repeat-end="">
+          <td colspan="3">
+            <div>
+              <a class="action-icon glyphicon glyphicon-trash" title="Delete client" ng-click="deleteClient(client)"
+                 href="javascript:void(0)"></a>
+              <a class="action-icon glyphicon glyphicon-repeat" title="Reset client token"
+                 ng-click="refreshClient(client);" href="javascript:void(0)"></a>
+            </div>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <!--Responsive Web Design-->
+      <div class="row visible-xs set-list responsive-user-list" ng-repeat="client in clients">
+        <div class="col-xs-5" ng-bind="client.clientName"></div>
+        <div class="col-xs-7" ng-bind="client.clientID"></div>
+      </div>
+      <div class="report-none-message sm ng-hide" ng-show="clients.length == 0" id="clients_none_message">No Client
+        Found
+      </div>
+    </div>
+    <div class="panel-footer">
+      <button id="admin_client_add_button" class="btn btn-common" ng-click="addClient()"><span
+        class="btn-icon glyphicon glyphicon-plus"></span><b>New Client</b></button>
+    </div>
+  </div>
+</div>
+<!---->
+<script type="text/ng-template" id="/add_client_form">
+  <div class="modal-header bg-success">
+    <h3 class="modal-title">Add New Client</h3>
+  </div>
+  <div class="modal-body">
+    <form role="form" name="addclientForm" ng-submit="submitForm(addclientForm)" novalidate>
+      <div class="form-group"
+           ng-class="{ 'has-error' : addclientForm.clientName.$invalid && !addclientForm.clientName.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-building" aria-hidden="true"></i></span>
+          <input type="text" name="clientName" placeholder="client name" ng-model="client.clientName"
+                 class="form-control" minlength="5"
+                 required>
+        </div>
+        <p ng-show="addclientForm.clientName.$error.minlength" class="help-block ng-hide">Minimum Length is 5</p>
+        <p ng-show="addclientForm.clientName.$error.maxlength" class="help-block ng-hide">Maximum Length is 20</p>
+      </div>
+      <div class="form-group"
+           ng-class="{ 'has-error' : addclientForm.clientID.$invalid && !addclientForm.clientID.$pristine }">
+        <div class="input-group">
+          <span class="input-group-addon"><i class="fa fa-openid" aria-hidden="true"></i></span>
+          <input type="text" name="clientID" placeholder="clientID" ng-model="client.clientID" class="form-control"
+                 minlength="5" required>
+        </div>
+        <p ng-show="addclientForm.clientID.$error.minlength" class="help-block ng-hide">Minimum Length is 5</p>
+        <p ng-show="addclientForm.clientID.$error.maxlength" class="help-block ng-hide">Maximum Length is 20</p>
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer text-right">
+    <button class="btn btn-default" ng-click="$dismiss()"><i class="btn-icon glyphicon glyphicon-remove"></i>Cancel
+    </button>
+    <button class="btn btn-common" ng-click="create()" ng-disabled="addclientForm.$invalid"><i
+      class="btn-icon glyphicon glyphicon-ok"></i>Add
+    </button>
+  </div>
+</script>

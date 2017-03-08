@@ -1,0 +1,318 @@
+@import "colors";
+
+.header-profile-image {
+  opacity: 0.9;
+  height: 20px;
+  width: 20px;
+  margin-right: 2px;
+  border-radius: 20%;
+}
+
+.navbar-brand > .main-logo {
+  display: inline-block;
+  max-height: 30px;
+  margin-top: -5px;
+  margin-right: 5px;
+}
+
+tr {
+  display: table-row !important;
+
+  td {
+    display: table-cell !important;
+  }
+}
+
+.main-content {
+  padding-top: 60px;
+}
+
+.report-none-message {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-align: center;
+  color: @reportNoneMsg;
+
+  &.md {
+    font-size: 3em;
+  }
+  &.sm {
+    font-size: 2em;
+  }
+}
+
+.underline-bottom {
+  border-bottom: 1px solid @underline;
+}
+
+.action-icon {
+  margin-right: 5px;
+}
+
+.form-horizontal .formgroupselect {
+  border-bottom: none;
+  margin: 5px auto;
+}
+
+.reportdate::before {
+  content: "--";
+  display: inline-block;
+  position: absolute;
+  left: -5px;
+  top: 10px;
+  color: @black;
+}
+
+/*
+ * Global add-ons
+ */
+
+.sub-header {
+  padding-bottom: 10px;
+  border-bottom: 1px solid @subHheaderBorder;
+}
+
+/*
+ * Top navigation
+ * Hide default border to remove 1px line.
+ */
+.navbar-fixed-top {
+  border: 0;
+
+  .read-only-lock {
+    font-size: 32px;
+    color: #ffffff;
+    margin-top: 11px;
+    float: left;
+  }
+}
+
+/*
+ * Sidebar
+ */
+.sidebar {
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  background-color: @inactiveNavBckg;
+  border-right: 1px solid @inactiveNavBckg;
+  position: relative;
+
+  li > a {
+    color: @black;
+    font-weight: 500;
+    padding-right: 20px;
+    padding-left: 20px;
+    border-bottom: 1px solid @grey-light;
+  }
+
+  .active > a,
+  .active > a:hover,
+  .active > a:focus {
+    color: @black;
+    background-color: @activeNavBckg;
+  }
+}
+
+/*
+ * Main content
+ */
+
+.generatetable {
+  display: inline-block;
+}
+
+.generateinfo {
+  text-align: left;
+  .info {
+    margin-right: 20px;
+  }
+  background-color: @generateBckg;
+  color: @white;
+  label {
+    display: inline-block;
+    .icheckbox_flat {
+      margin: -5px 0;
+    }
+  }
+  .confirm {
+    float: right;
+  }
+}
+
+.form-inline {
+  .form-group {
+    margin: 0 2px;
+    .calendar-input {
+      width: 50%;
+    }
+  }
+  select {
+    padding: 6px 25px 6px 9px;
+  }
+}
+
+.form-group {
+  .help-block {
+    text-align: center;
+  }
+}
+
+.green-text {
+  color: @txtGreen
+}
+
+.form-inline {
+  select {
+    margin: 0 6px;
+  }
+  .input-group {
+    margin: 0 6px;
+  }
+}
+
+.form-inline {
+  .input-group-addon {
+    cursor: pointer;
+    &:hover {
+      background-color: #cccfd3;
+    }
+  }
+}
+
+.pagination > .active > a,
+.pagination > .active > span {
+  color: @white;
+  background-color: @paginationBckg;
+  border-color: @paginationBorder;
+  &:hover, &:focus {
+    background-color: @paginationBckg;
+    border-color: @paginationBorder;
+  }
+}
+
+/*Admin Form*/
+.fb-component, .fb-draggable {
+  border: 1px dashed @commonBorder;
+}
+
+.popover {
+  color: @black
+}
+
+.form-radio {
+  display: inline-block;
+  margin-right: 30px;
+  label {
+    padding-left: 15px;
+  }
+  input {
+    margin-left: -15px;
+  }
+}
+
+.popover-content {
+  .checkbox {
+    padding-left: 15px;
+  }
+}
+
+.fb-form-object-editable.fb-draggable label {
+  padding-right: 10px;
+}
+
+.set-list {
+  ul, ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.read-only-mode {
+  [read-only="hide"] {
+    display: none !important;
+  }
+  [read-only="disabled"] {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
+
+.no-padding {
+  padding: 0;
+}
+
+.no-padding-right {
+  padding-right: 0;
+}
+
+.no-padding-left {
+  padding-left: 0;
+}
+
+.gallery-box {
+  width: 46%;
+  margin: 2%;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  float: left;
+}
+
+.color-gray {
+  color: @grey;
+}
+
+.file-list {
+  .file-preview-container {
+    width: 100%;
+    height: 150px;
+    text-align: center;;
+  }
+
+  .col-md-3 {
+    padding: 15px;
+  }
+
+  .file-name {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
+
+  .random-color-0 {
+    background-color: #99CC99;
+  }
+  .random-color-1 {
+    background-color: #FFFFCC;
+  }
+  .random-color-2 {
+    background-color: #CCFFFF;
+  }
+  .random-color-3 {
+    background-color: #FFCCCC;
+  }
+  .random-color-4 {
+    background-color: #99CCCC;
+  }
+  .random-color-5 {
+    background-color: #336666;
+  }
+  .random-color-6 {
+    background-color: #99CC33;
+  }
+  .random-color-7 {
+    background-color: #CCCCFF;
+  }
+  .random-color-8 {
+    background-color: #CCCCCC;
+  }
+  .random-color-9 {
+    background-color: #CCCC99;
+  }
+}

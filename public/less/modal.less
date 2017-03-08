@@ -1,0 +1,134 @@
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #000;
+  bottom: 0;
+}
+
+.modal-common {
+  .modal-footer {
+    border-top-color: @modalFooterBorderTop;
+    background-color: @modalFooterBack;
+    margin-top: 0;
+    border-radius: 0 0 4px 4px;
+  }
+
+  .multi-file-upload {
+    max-height: 450px;
+    overflow-y: scroll;
+    overflow-x:hidden;
+  }
+
+  .responsive-upload {
+    background-color: #efefef; /*todo define color in color.less*/
+    padding: 15px;
+    min-height: 250px;
+
+    .upload-btn {
+      margin-top: 80px;
+    }
+
+    img {
+      max-width: 95%;
+      max-height: 140px;
+    }
+
+    .multi-file {
+
+      .btn {
+        height: 180px;
+        width: 100%;
+        background-color: #ddd;
+        color: @black;
+      }
+
+      .upload_preview_container {
+        width: 100%;
+        line-height: 160px;
+        background-color: #454545; /*todo define color in color.less*/
+
+        img {
+          width: auto;
+          max-width: 95%;
+          max-height: 140px;
+        }
+      }
+    }
+  }
+
+  .modal-header {
+    padding: 9px 15px;
+    border-bottom: 1px solid @modalFooterBorderBot;
+    background-color: @modalHeaderBack;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+
+  .modal-body {
+    margin: 20px auto;
+
+    form {
+      .checkItem {
+        font-size: 15px;
+      }
+    }
+
+    .more {
+      margin-right: 10px;
+    }
+
+    .panel-title a {
+      color: @black;
+      &:hover {
+        color: @black;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .modal-title {
+    color: @white;
+  }
+
+  label[class=control-label] {
+    margin-right: 30px;
+  }
+
+  input[class=iradio_flat] {
+    width: 17px;
+    margin-top: -1px;
+  }
+
+  input[type=checkbox] {
+    margin: 0 5px 0 10px;
+  }
+
+  .textarea-container {
+    width: 100%;
+  }
+  textarea {
+    width: 100%;
+  }
+
+  .edit-modal {
+    .input-group {
+      width: 100%;
+    }
+
+    .input-group-addon {
+      text-align: left;
+      width: 115px;
+    }
+
+    .list-group {
+      margin-bottom: 1px;
+    }
+
+    .email-format {
+      margin: 0;
+    }
+
+  }
+}
