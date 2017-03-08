@@ -4,7 +4,7 @@ var defaultEnvConfig = require('./default');
 
 module.exports = {
     db: {
-        uri: process.env.TEST_DB_CONFIG || 'mongodb://user:123gogogo@120.27.52.242:27758/common_service-test',
+        uri: process.env.TEST_DB_CONFIG,
         options: {
             user: '',
             pass: ''

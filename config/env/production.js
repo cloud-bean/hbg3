@@ -12,7 +12,7 @@ module.exports = {
     },
     port: process.env.PORT || 8443,
     db: {
-        uri: process.env.DB_CONFIG_URI || 'mongodb://user:123gogogo@120.27.52.242:27758/common_service-demo',
+        uri: process.env.DB_CONFIG_URI,
         options: {
             user: '',
             pass: ''

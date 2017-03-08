@@ -26,7 +26,7 @@ module.exports = {
     port: process.env.PORT || 80,
     host: process.env.HOST || '0.0.0.0',
     db: {
-        uri: process.env.DB_CONFIG_URI || 'mongodb://user:123gogogo@120.27.52.242:27758/common_service-dev',
+        uri: process.env.DB_CONFIG_URI,
         options: {
             user: '',
             pass: ''
@@ -65,9 +65,9 @@ module.exports = {
     logo: './public/img/logo.png',
     favicon: './public/img/favicon.ico',
     mailGun: {
-        api_key: process.env.MAILGUN_API_KEY || 'key-697beead3ec803b1343a384017cba797',
-        domain: process.env.MAIL_DOMAIN || 'erealmsoft.com',
-        fromWho: process.env.MAIL_FROM_WHO || 'support <support@erealmsoft.com>'
+        api_key: process.env.MAILGUN_API_KEY,
+        domain: process.env.MAIL_DOMAIN,
+        fromWho: process.env.MAIL_FROM_WHO'
     },
     token: {
         userTokenLife: parseInt(process.env.USER_TOKEN_LIFE) || 5 * 60 * 1000, // 5 Minutes  5 * 60 * 1000
