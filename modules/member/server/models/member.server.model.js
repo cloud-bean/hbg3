@@ -2,13 +2,13 @@
     'use strict';
     var mongoose = require('mongoose'),
         Schema = mongoose.Schema;
-    
+
     var fileSchema = new Schema({
         fileName: String,
         URL: String,
         fileSize: String
     });
-    
+
     var MemberSchema = new Schema({
         pre_id: String, // 原来系统中的数据纪录的id
         phone_number: {
@@ -41,7 +41,7 @@
         email: {
             type: String,
             match: /.+\@.+\..+/
-        } ,
+        },
         weixin: String,
         other: String,  // 备注
         max_book: {
@@ -55,24 +55,24 @@
         file: fileSchema,
         head_photo: String // 头像
     });
-    
+
     /**
      * Hook a pre save method
      */
     MemberSchema.pre('save', function (next) {
         // code here
-        
+
         next();
     });
-    
+
     MemberSchema.methods = {
         // methodName: function () {}
-        
+
     };
-    
+
     MemberSchema.statics = {
         // staticPropertyName: value
-        
+
         load: function (options, cb) {
             this.findOne(options.criteria)
                 .select(options.select)
@@ -82,8 +82,8 @@
             this.find(options.criteria)
                 .select(options.select)
                 .sort(options.sortBy || {
-                        'created': -1
-                    })
+                    'created': -1
+                })
                 .exec(cb);
         },
         memberPagination: function (options, cb) {
@@ -93,15 +93,15 @@
             }
             var q = options.criteria || {},
                 col = options.columns || {},
-                pageNumber = parseInt(options.page) || 1,
-                resultsPerPage = parseInt(options.limit) || 20,
+                pageNumber = parseInt(options.page, 10) || 1,
+                resultsPerPage = parseInt(options.limit, 10) || 20,
                 skipFrom = (pageNumber * resultsPerPage) - resultsPerPage,
                 query = this.find(q, col)
                     .select(options.select)
                     .sort(options.sortBy || '-created')
                     .skip(skipFrom)
                     .limit(resultsPerPage);
-            
+
             query.exec(function (error, results) {
                 if (error) {
                     cb(error, null);
@@ -111,7 +111,7 @@
             });
         }
     };
-    
+
     module.exports = mongoose.model('member', MemberSchema, 'members');
-    
+
 }());

@@ -8,28 +8,28 @@
         .module('inventory')
         .controller('InventoryController', InventoryController)
         .controller('InventoryModalController', InventoryModalController);
-    
+
     InventoryController.$inject = ['$scope', '$http', '$uibModal', 'InventoryService'];
-    
+
     function InventoryController($scope, $http, $modal, InventoryService) {
         $scope.currentInventory = null;
         $scope.pageOptions = {
             page: 1,
             limit: 20
         };
-        
+
         $scope.searchInventory = function (isArchived) {
             $scope.currentInventory = null;
             refresh();
         };
-        
+
         var refresh = function () {
             var queryOptions = {
                 page: $scope.pageOptions.page,
                 limit: $scope.pageOptions.limit,
                 searchText: $scope.searchText
             };
-            
+
             InventoryService.query(queryOptions, function (data, headers) {
                 $scope.totalItemsCount = headers()['x-total-items-count'];
                 $scope.inventories = data;
@@ -50,28 +50,28 @@
                                 return false;
                             }
                         });
-                        
+
                         if (!isMatched) {
                             $scope.currentInventory = $scope.inventories[0];
                         }
                     }
                 }
-            })
+            });
         };
-        
+
         $scope.selectCurrentInventory = function (inventory) {
             $scope.currentInventory = inventory;
         };
-        
-        
+
+
         $scope.addInventory = function (inventory) {
             var model = new InventoryService(inventory);
             model.$save(function () {
                 $scope.currentInventory = null;
                 $scope.refresh();
-            })
+            });
         };
-        
+
         $scope.updateInventory = function (inventory) {
             if (inventory === null) {
                 return;
@@ -80,7 +80,7 @@
                 refresh();
             });
         };
-        
+
         $scope.deleteInventory = function (inventoryObj) {
             if (inventoryObj === null) {
                 return;
@@ -93,10 +93,10 @@
                 });
             });
         };
-        
-        
+
+
         $scope.refresh = refresh;
-        
+
         $scope.inventoryActions = {
             'add': {
                 text: 'Add',
@@ -115,7 +115,7 @@
                 controller: 'InventoryModalController'
             }
         };
-        
+
         $scope.selectInventory = function (item, action) {
             if (item) {
                 $scope.backupEntry = item;
@@ -126,7 +126,7 @@
             $scope.currentInventoryAction = $scope.inventoryActions[action];
             $scope.showInventoryModal();
         };
-        
+
         $scope.showInventoryModal = function () {
             var modalInstance = $modal.open({
                 templateUrl: $scope.currentInventoryAction.tpl,
@@ -136,7 +136,7 @@
                         return $scope.resolveInventory;
                     },
                     currentInventoryAction: function () {
-                        return $scope.currentInventoryAction
+                        return $scope.currentInventoryAction;
                     }
                 },
                 windowClass: 'modal-common',
@@ -147,13 +147,13 @@
             });
         };
     }
-    
+
     InventoryModalController.$inject = ['$scope', '$uibModalInstance', 'inventory', 'currentInventoryAction', '$timeout'];
-    
+
     function InventoryModalController($scope, $modalInstance, inventory, currentInventoryAction, $timeout) {
         $scope.inventory = inventory;
         $scope.currentInventoryAction = currentInventoryAction;
-        
+
         $scope.dealWithFilesOneSubmitted = function ($files, $event, $flowFile) {
             if ($flowFile.files.length === 0) {
                 return 0;
@@ -163,13 +163,13 @@
                 $scope.$flowFile.upload();
             }
         };
-        
+
         $scope.flowOptions = {
             singleFile: true
         };
-        
+
         $scope.multiFile = !$scope.flowOptions || !$scope.flowOptions.singleFile;
-        
+
         $scope.validateImg = function (file) {
             if (file.size > 10 * 1024 * 1024) {
                 $scope.showConfirmMessage('CMSV_SIZE_LARGE', ['10M'], function () {
@@ -177,17 +177,17 @@
                 return false;
             }
         };
-        
+
         $scope.uploadSuccess = function (response) {
             $scope.inventory.file = (JSON.parse(response)).data;
         };
-        
+
         $scope.operateInventory = function () {
             $modalInstance.close($scope.inventory);
         };
-        
+
         $scope.toInt = function (a) {
             return parseInt(a, 10) * 100;
-        }
+        };
     }
 }());

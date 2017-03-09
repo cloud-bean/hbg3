@@ -9,15 +9,13 @@
         Inventory = mongoose.model('inventory'),
         responseHandler = require(path.resolve('./config/helper/responseHelper')),
         _ = require('lodash');
-    
-    
+
     /**
      * Create a inventory
      */
     exports.create = function (req, res) {
         var inventory = new Inventory(req.body);
         // inventory.inventoryID = inventory.generateID();
-        
         inventory.save(function (err, newInventory) {
             if (err) {
                 config.error('create inventory error: ' + err);
@@ -30,23 +28,23 @@
             }
         });
     };
-    
+
     /**
      * get inventory info by _id
      */
     exports.read = function (req, res) {
         return res.send(responseHandler.getSuccessData(req.model));
     };
-    
+
     /**
      * Update a inventory
      */
     exports.update = function (req, res) {
         var inventory = req.model;
-        
+
         // do modify
         _.extend(inventory, req.body);
-        
+
         inventory.save(function (err) {
             if (err) {
                 config.error('update inventory error: ' + err);
@@ -59,7 +57,7 @@
             }
         });
     };
-    
+
     /**
      * Delete a inventory
      */
@@ -77,7 +75,7 @@
             }
         });
     };
-    
+
     /**
      * List of inventory
      */
@@ -86,7 +84,7 @@
             searchText: req.query.searchText || '',
             criteria: {}
         };
-        
+
         // if (options.searchText && (options.searchText.trim().length !== 0)) {
         //     var searchTextRegEx = new RegExp(escape(options.searchText.trim()), 'i');
         //     options.criteria.$or = [
@@ -102,7 +100,7 @@
         //         }
         //     ]
         // }
-        
+
         Inventory.count(options.criteria, function (err, count) {
             var totalCount = count;
             options.page = req.query.page;
@@ -116,18 +114,18 @@
                 }
             });
         });
-        
+
     };
-    
+
     /**
      * Inventory middleware
      */
     exports.inventoryByID = function (req, res, next, id) {
-        
+
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.send(responseHandler.getResponseData('400'));
         }
-        
+
         Inventory.findById(id)
             .exec(function (err, inventory) {
                 if (err) {
@@ -139,5 +137,5 @@
                 next();
             });
     };
-    
+
 }());

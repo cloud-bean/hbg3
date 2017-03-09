@@ -130,6 +130,23 @@ module.exports = function (grunt) {
 				src: defaultAssets.client.css
 			}
 		},
+		uglify: {
+			production: {
+				options: {
+					mangle: false
+				},
+				files: {
+					'public/dist/application.min.js': 'public/dist/application.js'
+				}
+			}
+		},
+		cssmin: {
+			combine: {
+				files: {
+					'public/dist/application.min.css': defaultAssets.client.css
+				}
+			}
+		},
 		ngAnnotate: {
 			production: {
 				files: {
@@ -312,6 +329,9 @@ module.exports = function (grunt) {
 	grunt.registerTask('test:e2e', ['env:test', 'lint', 'dropdb', 'server', 'protractor']);
 	// Run project coverage
 	grunt.registerTask('coverage', ['env:test', 'lint', 'mocha_istanbul:coverage', 'karma:unit']);
+
+// Build task(s).
+	grunt.registerTask('build', ['lint', 'copy:localConfig', 'ngAnnotate', 'uglify', 'cssmin']);
 
 	// Run the project in development mode
 	grunt.registerTask('default', ['env:dev', 'less', 'mkdir:logs', 'mkdir:upload', 'copy:localConfig', 'concurrent:default']);

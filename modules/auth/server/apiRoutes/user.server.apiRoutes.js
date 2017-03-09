@@ -16,7 +16,7 @@
         .post('/users/password/forgot', user.passwordForgot)
         .get('/users/password/retrieve/:email', user.changePasswordRandom)
         .get('/users/password/token/:token', user.getResetPasswordToken)
-        .get('/users/status/:token',user.activeUserByToken)
+        .get('/users/status/:token', user.activeUserByToken)
         .patch('/users/password/reset', user.changePasswordByToken)
         .post('/users/attribute/inspect', authHelper.isAuthAllowed, user.inspect)
         .post('/users/:userId/change/password', authHelper.isAuthAllowed, user.changePassword);

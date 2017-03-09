@@ -220,8 +220,8 @@ UserSchema.statics = {
         this.find(options.criteria)
         .select(options.select)
         .sort(options.sortBy || {
-                'created': -1
-            })
+            'created': -1
+        })
         .exec(cb);
     },
     userPagination: function (options, cb) {

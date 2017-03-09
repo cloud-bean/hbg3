@@ -16,8 +16,6 @@ var formidable = require('formidable'),
 
 var qiniu = require('qiniu');
 
-
-
 exports.upload = function (req, res, next) {
     var form = new formidable.IncomingForm();
     form.keepExtensions = true;
@@ -41,29 +39,29 @@ exports.upload = function (req, res, next) {
             cloudURL: '',
             URL: ''
         };
-        
+
         var uploadFile = function (fileObj, done) {
             qiniu.conf.ACCESS_KEY = config.qiniu.ACCESS_KEY;
             qiniu.conf.SECRET_KEY = config.qiniu.SECRET_KEY;
-    
+
             var bucket = config.qiniu.bucket;
-            
+
             // remote file name
             var key = fileObj.uniqueName;
-            
+
             // remote default domain
             var domainURL = config.qiniu.domainURL;
             // upload policy
             function uptoken(bucket, key) {
-                var putPolicy = new qiniu.rs.PutPolicy(bucket + ":" + key);
+                var putPolicy = new qiniu.rs.PutPolicy(bucket + ':' + key);
                 return putPolicy.token();
             }
-            
+
             // upload Token
             var token = uptoken(bucket, key);
             var extra = new qiniu.io.PutExtra();
             var localFile = fileObj.path;
-            
+
             qiniu.io.putFile(token, key, localFile, extra, function (err, ret) {
                 if (!err) {
                     // upload ok
@@ -78,21 +76,21 @@ exports.upload = function (req, res, next) {
                 }
             });
         };
-        
+
         var saveToDB = function (err, results) {
             if (err) {
                 return res.send(responseHandler.getResponseData('500'));
             }
-            
+
             if (results.cloudURL) {
                 fileInfo.URL = results.cloudURL;
             } else {
                 fileInfo.URL = results.localURL;
             }
-            
+
             if (results.URL) {
                 var file = new File(results);
-                
+
                 file.save(function (err) {
                     if (err) {
                         return res.send(responseHandler.getMongoErrorMessage(err));
@@ -108,7 +106,7 @@ exports.upload = function (req, res, next) {
                 return res.send(responseHandler.getResponseData('500'));
             }
         };
-    
+
         uploadFile(fileInfo, saveToDB);
     });
 };
@@ -117,7 +115,7 @@ exports.list = function (req, res, next) {
     var options = {
         searchText: ''
     };
-    
+
     File.count(function (err, count) {
         var totalCount = count;
         options.page = req.query.page;
@@ -154,7 +152,7 @@ exports.delete = function (req, res, next) {
     if (!fileId) {
         return res.send(responseHandler.getResponseData('400'));
     }
-    
+
     File.findOne({_id: fileId}, function (err, file) {
         if (err) {
             return res.send(responseHandler.getMongoErrorMessage(err));
@@ -162,7 +160,7 @@ exports.delete = function (req, res, next) {
         if (!file) {
             return res.json(responseHandler.getResponseData({code: 'CMSV_NOT_FOUND_ERR', messageInfo: ['File']}));
         }
-    
+
         var deleteFromCloud = function (done) {
             var client = new qiniu.rs.Client();
             var bucket = config.qiniu.bucket;
@@ -173,11 +171,11 @@ exports.delete = function (req, res, next) {
             });
             done(null, file);
         };
-        
+
         var deleteFromDB = function (file, done) {
             file.remove(done);
         };
-    
+
         async.waterfall([
             deleteFromCloud,
             deleteFromDB

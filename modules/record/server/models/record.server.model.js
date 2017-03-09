@@ -2,13 +2,13 @@
     'use strict';
     var mongoose = require('mongoose'),
         Schema = mongoose.Schema;
-    
+
     var fileSchema = new Schema({
         fileName: String,
         URL: String,
         fileSize: String
     });
-    
+
     var RecordSchema = new Schema({
         inventory: {
             type: Schema.ObjectId,
@@ -30,24 +30,24 @@
             default: null
         }
     });
-    
+
     /**
      * Hook a pre save method
      */
     RecordSchema.pre('save', function (next) {
         // code here
-        
+
         next();
     });
-    
+
     RecordSchema.methods = {
         // methodName: function () {}
-        
+
     };
-    
+
     RecordSchema.statics = {
         // staticPropertyName: value
-        
+
         load: function (options, cb) {
             this.findOne(options.criteria)
                 .select(options.select)
@@ -61,8 +61,8 @@
                 .populate('inventory')
                 .populate('member')
                 .sort(options.sortBy || {
-                        'created': -1
-                    })
+                    'created': -1
+                })
                 .exec(cb);
         },
         recordPagination: function (options, cb) {
@@ -72,8 +72,8 @@
             }
             var q = options.criteria || {},
                 col = options.columns || {},
-                pageNumber = parseInt(options.page) || 1,
-                resultsPerPage = parseInt(options.limit) || 20,
+                pageNumber = parseInt(options.page, 10) || 1,
+                resultsPerPage = parseInt(options.limit, 10) || 20,
                 skipFrom = (pageNumber * resultsPerPage) - resultsPerPage,
                 query = this.find(q, col)
                     .select(options.select)
@@ -82,7 +82,7 @@
                     .limit(resultsPerPage)
                     .populate('inventory')
                     .populate('member');
-            
+
             query.exec(function (error, results) {
                 if (error) {
                     cb(error, null);
@@ -92,7 +92,7 @@
             });
         }
     };
-    
+
     module.exports = mongoose.model('record', RecordSchema, 'records');
-    
+
 }());

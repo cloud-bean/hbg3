@@ -7,20 +7,20 @@
     angular
           .module('record.services')
           .factory('RecordService', RecordService);
-      
-      RecordService.$inject = ['$resource'];
-      
-      function RecordService($resource) {
-          return $resource('app/records/:recordId', {
-              recordId: '@_id'
-          }, {
-              update: {
-                  method: 'PUT'
-              },
-              query: {
-                  method: 'GET',
-                  isArray: true
-              }
-          });
-      }
+
+    RecordService.$inject = ['$resource'];
+
+    function RecordService($resource) {
+        return $resource('app/records/:recordId', {
+            recordId: '@_id'
+        }, {
+            update: {
+                method: 'PUT'
+            },
+            query: {
+                method: 'GET',
+                isArray: true
+            }
+        });
+    }
 }());

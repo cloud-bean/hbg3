@@ -7,20 +7,20 @@
     angular
           .module('member.services')
           .factory('MemberService', MemberService);
-      
-      MemberService.$inject = ['$resource'];
-      
-      function MemberService($resource) {
-          return $resource('app/members/:memberId', {
-              memberId: '@_id'
-          }, {
-              update: {
-                  method: 'PUT'
-              },
-              query: {
-                  method: 'GET',
-                  isArray: true
-              }
-          });
-      }
+
+    MemberService.$inject = ['$resource'];
+
+    function MemberService($resource) {
+        return $resource('app/members/:memberId', {
+            memberId: '@_id'
+        }, {
+            update: {
+                method: 'PUT'
+            },
+            query: {
+                method: 'GET',
+                isArray: true
+            }
+        });
+    }
 }());

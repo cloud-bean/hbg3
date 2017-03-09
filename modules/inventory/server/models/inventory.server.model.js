@@ -2,13 +2,13 @@
     'use strict';
     var mongoose = require('mongoose'),
         Schema = mongoose.Schema;
-    
+
     var fileSchema = new Schema({
         fileName: String,
         URL: String,
         fileSize: String
     });
-    
+
     var InventorySchema = new Schema({
         location: {
             type: String,     // 库存位置
@@ -24,9 +24,9 @@
         },
         inv_code: {         // 入库编码
             type: String,
-        
+
             require: true,
-        
+
             unique: true,
             default: ''
         },
@@ -65,24 +65,24 @@
         }],      // 标签,
         file: fileSchema
     });
-    
+
     /**
      * Hook a pre save method
      */
     InventorySchema.pre('save', function (next) {
         // code here
-        
+
         next();
     });
-    
+
     InventorySchema.methods = {
         // methodName: function () {}
-        
+
     };
-    
+
     InventorySchema.statics = {
         // staticPropertyName: value
-        
+
         load: function (options, cb) {
             this.findOne(options.criteria)
                 .select(options.select)
@@ -92,8 +92,8 @@
             this.find(options.criteria)
                 .select(options.select)
                 .sort(options.sortBy || {
-                        'created': -1
-                    })
+                    'created': -1
+                })
                 .exec(cb);
         },
         inventoryPagination: function (options, cb) {
@@ -103,15 +103,15 @@
             }
             var q = options.criteria || {},
                 col = options.columns || {},
-                pageNumber = parseInt(options.page) || 1,
-                resultsPerPage = parseInt(options.limit) || 20,
+                pageNumber = parseInt(options.page, 10) || 1,
+                resultsPerPage = parseInt(options.limit, 10) || 20,
                 skipFrom = (pageNumber * resultsPerPage) - resultsPerPage,
                 query = this.find(q, col)
                     .select(options.select)
                     .sort(options.sortBy || '-created')
                     .skip(skipFrom)
                     .limit(resultsPerPage);
-            
+
             query.exec(function (error, results) {
                 if (error) {
                     cb(error, null);
@@ -121,7 +121,7 @@
             });
         }
     };
-    
+
     module.exports = mongoose.model('inventory', InventorySchema, 'inventories');
-    
+
 }());

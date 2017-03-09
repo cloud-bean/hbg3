@@ -197,8 +197,13 @@ var initGlobalConfig = function () {
     // Validate NODE_ENV existence
     validateEnvironmentVariable();
 
+    var assetsConfigFile = 'config/assets/default';
+    if (process.env.NODE_ENV === 'production') {
+        assetsConfigFile = 'config/assets/production';
+    }
+    
     // Merge assets
-    var assets = require(path.join(process.cwd(), 'config/assets/default'));
+    var assets = require(path.join(process.cwd(), assetsConfigFile));
 
     // Get the default config
     var defaultConfig = require(path.join(process.cwd(), 'config/env/default'));

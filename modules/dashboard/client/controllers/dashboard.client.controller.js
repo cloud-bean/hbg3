@@ -11,9 +11,9 @@
     .module('dashboard')
     .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$rootScope','$scope', '$state', 'ConfigService', 'Authentication'];
+    DashboardController.$inject = ['$rootScope', '$scope', '$state', 'ConfigService', 'Authentication'];
 
-    function DashboardController($rootScope,$scope, $state, ConfigService, Authentication) {
+    function DashboardController($rootScope, $scope, $state, ConfigService, Authentication) {
         $scope.init = function () {
             $scope.auth = Authentication.user;
             $scope.menus = [];
