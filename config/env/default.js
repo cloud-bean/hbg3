@@ -67,7 +67,7 @@ module.exports = {
     mailGun: {
         api_key: process.env.MAILGUN_API_KEY,
         domain: process.env.MAIL_DOMAIN,
-        fromWho: process.env.MAIL_FROM_WHO'
+        fromWho: process.env.MAIL_FROM_WHO
     },
     token: {
         userTokenLife: parseInt(process.env.USER_TOKEN_LIFE) || 5 * 60 * 1000, // 5 Minutes  5 * 60 * 1000
